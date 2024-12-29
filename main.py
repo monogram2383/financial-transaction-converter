@@ -1,14 +1,14 @@
 import logging
 
 from fastapi import FastAPI, File, UploadFile, Response
-from fastapi.responses import StreamingResponse, FileResponse
-import pandas as pd
+from fastapi.responses import StreamingResponse
 from uvicorn import run
 
-from config import logger
+from config import logger, FTC_SERVER_PORT
 from src.pipelines.pipeline_process_privat24_transactions import PipelineProcessPrivat24Transactions
 
 app = FastAPI()
+
 
 @app.post("/process_privat24_transactions")
 async def process_privat24_transactions(input_file: UploadFile = File(...)):
@@ -31,10 +31,10 @@ async def process_privat24_transactions(input_file: UploadFile = File(...)):
         status_code=200,
         media_type="text/csv",
         headers={"Content-Disposition": f"attachment; filename=data.csv"}
-)
+    )
 
 
 if __name__ == '__main__':
-    run(app, host='0.0.0.0', port=9001)
+    run(app, host='0.0.0.0', port=FTC_SERVER_PORT)
     logger.level = logging.DEBUG
     logger.info("Server started")
