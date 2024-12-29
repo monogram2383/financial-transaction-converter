@@ -1,14 +1,11 @@
-import datetime
-
 import numpy as np
-from tqdm import tqdm
-from currency.converter import conversion_rate
 
 from config import logger
 
 
 def convert_fiat(amounts: list[float], dates: list[str], from_="UAH", to_="USD") -> list[float]:
-    logger.info(f"[CURRENCY CONVERSION] Beginning convertion of {len(amounts)} fiat transactions from {from_} to {to_}:")
+    logger.info(
+        f"[CURRENCY CONVERSION] Beginning convertion of {len(amounts)} fiat transactions from {from_} to {to_}:")
 
     # converted_amounts = []
     # for amount, date in tqdm(zip(amounts, dates), desc="Converting...", leave=True):
